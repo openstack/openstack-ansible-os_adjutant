@@ -29,14 +29,14 @@ adjutant_system_comment: adjutant system user
 adjutant_system_shell: /bin/false
 adjutant_system_home_folder: "/var/lib/{{ adjutant_system_user_name }}"
 
-adjutant_venv_tag: untagged
+adjutant_venv_tag: "{{ venv_tag | default('untagged') }}"
 adjutant_bin: "/openstack/venvs/adjutant-{{ adjutant_venv_tag }}/bin"
 
 adjutant_git_repo: https://opendev.org/openstack/adjutant
 adjutant_git_install_branch: master
 adjutant_upper_constraints_url: "{{ requirements_git_url | default('https://releases.openstack.org/constraints/upper/' ~ requirements_git_install_branch | default('master')) }}"
 adjutant_git_constraints:
-  - "git+{{ adjutant_git_repo }}@{{ adjutant_git_install_branch }}#egg=adjutant"
+  - "git+{{ adjutant_git_repo }}@{{ adjutant_git_install_branch }}#egg=python-adjutant"
   - "--constraint {{ adjutant_upper_constraints_url }}"
 
 adjutant_user_domain_name: Default
