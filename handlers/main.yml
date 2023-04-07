@@ -26,6 +26,7 @@
   delay: 2
   listen:
     - Restart adjutant services
+    - systemd service changed
 
 - name: Start services
   service:
@@ -42,3 +43,4 @@
   delay: 2
   listen:
     - Restart adjutant services
+    - systemd service changed
