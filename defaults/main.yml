@@ -263,7 +263,7 @@ adjutant_pip_packages:
   - systemd-python
 
 adjutant_pip_extra_packages:
-    - mysqlclient
+    - mysqlclient<2.2.0
 
 ###
 ### Backend TLS
