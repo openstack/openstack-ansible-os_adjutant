@@ -107,16 +107,16 @@ adjutant_role_mapping:
     - project_admin
     - project_mod
     - heat_stack_owner
-    - _member_
+    - member
   project_admin:
     - project_admin
     - project_mod
     - heat_stack_owner
-    - _member_
+    - member
   project_mod:
     - project_mod
     - heat_stack_owner
-    - _member_
+    - member
 adjutant_blacklisted_roles:
   - admin
   - rating
