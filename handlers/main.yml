@@ -14,11 +14,11 @@
 # limitations under the License.
 
 - name: Stop services
-  service:
+  ansible.builtin.service:
     name: "{{ item.service_name }}"
     enabled: "{{ item.service_enabled | bool }}"
     state: "stopped"
-    daemon_reload: yes
+    daemon_reload: true
   with_items: "{{ filtered_adjutant_services }}"
   register: _stop
   until: _stop is success
@@ -30,11 +30,11 @@
     - cert installed
 
 - name: Start services
-  service:
+  ansible.builtin.service:
     name: "{{ item.service_name }}"
-    enabled: yes
+    enabled: true
     state: "started"
-    daemon_reload: yes
+    daemon_reload: true
   with_items: "{{ filtered_adjutant_services }}"
   when:
     - item.service_enabled | bool

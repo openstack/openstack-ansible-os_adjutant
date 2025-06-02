@@ -34,7 +34,7 @@
     - Restart uwsgi services
 
 - name: Drop Adjutant WSGI Configs
-  template:
+  ansible.builtin.template:
     src: wsgi.py.j2
     dest: "{{ adjutant_bin }}/adjutant-api-wsgi"
     owner: "{{ adjutant_system_user_name }}"

@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Install the python venv
-  import_role:
+  ansible.builtin.import_role:
     name: "python_venv_build"
   vars:
     venv_python_executable: "{{ adjutant_venv_python_executable }}"
@@ -35,13 +35,13 @@
 # To reduce places where we need mysql-devel, we install mysqlclient separately inside
 # venv on the adjutant containers directly.
 - name: Install maria devel packages
-  import_role:
+  ansible.builtin.import_role:
     name: galera_server
   vars:
     galera_install_devel: true
 
 - name: Install distro packages for extra package build
-  package:
+  ansible.builtin.package:
     name: "{{ adjutant_distro_packages }}"
     state: "{{ adjutant_package_state }}"
     update_cache: "{{ (ansible_facts['pkg_mgr'] == 'apt') | ternary('yes', omit) }}"
@@ -52,7 +52,7 @@
   delay: 2
 
 - name: Install extra pip packages into build venv
-  pip:
+  ansible.builtin.pip:
     virtualenv: "{{ adjutant_bin | dirname }}"
     name: "{{ adjutant_pip_extra_packages }}"
     state: present
