@@ -16,7 +16,7 @@
 # limitations under the License.
 
 - name: Gather variables for each operating system
-  include_vars: "{{ lookup('first_found', params) }}"
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
       files:
@@ -31,7 +31,7 @@
     - always
 
 - name: Including osa.db_setup role
-  include_role:
+  ansible.builtin.include_role:
     name: openstack.osa.db_setup
     apply:
       tags:
@@ -52,17 +52,17 @@
     - always
 
 - name: Importing adjutant_pre_install tasks
-  import_tasks: adjutant_pre_install.yml
+  ansible.builtin.import_tasks: adjutant_pre_install.yml
   tags:
     - adjutant-install
 
 - name: Importing adjutant_install tasks
-  import_tasks: adjutant_install.yml
+  ansible.builtin.import_tasks: adjutant_install.yml
   tags:
     - adjutant-install
 
 - name: Create and install SSL certificates
-  include_role:
+  ansible.builtin.include_role:
     name: pki
     tasks_from: main_certs.yml
     apply:
@@ -82,18 +82,18 @@
     - always
 
 - name: Importing adjutant_post_install tasks
-  import_tasks: adjutant_post_install.yml
+  ansible.builtin.import_tasks: adjutant_post_install.yml
   tags:
     - adjutant-config
 
 - name: Importing adjutant_db_sync tasks
-  import_tasks: adjutant_db_sync.yml
+  ansible.builtin.import_tasks: adjutant_db_sync.yml
   when: _adjutant_is_first_play_host
   tags:
     - adjutant-config
 
 - name: Including osa.service_setup role
-  include_role:
+  ansible.builtin.include_role:
     name: openstack.osa.service_setup
     apply:
       tags:
@@ -131,7 +131,7 @@
     - always
 
 - name: Run the systemd service role
-  include_role:
+  ansible.builtin.include_role:
     name: systemd_service
   vars:
     systemd_user_name: "{{ adjutant_system_user_name }}"
@@ -158,7 +158,7 @@
     - systemd-service
 
 - name: Import uwsgi role
-  import_role:
+  ansible.builtin.import_role:
     name: uwsgi
   vars:
     uwsgi_services: "{{ uwsgi_adjutant_services }}"
@@ -169,4 +169,4 @@
     - uwsgi
 
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers

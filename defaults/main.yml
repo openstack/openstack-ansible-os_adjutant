@@ -14,7 +14,7 @@
 # limitations under the License.
 
 ## Verbosity Options
-debug: False
+debug: false
 
 # Set the package install state for distribution packages
 # Options are 'present' and 'latest'
@@ -88,7 +88,7 @@ adjutant_wsgi_threads: 1
 adjutant_wsgi_processes_max: 16
 adjutant_wsgi_processes: >-
   {{ [[(ansible_facts['processor_vcpus'] // ansible_facts['processor_threads_per_core']) | default(1), 1] | max * 2, adjutant_wsgi_processes_max] | min }}
-adjutant_use_uwsgi: True
+adjutant_use_uwsgi: true
 adjutant_uwsgi_tls:
   crt: "{{ adjutant_ssl_cert }}"
   key: "{{ adjutant_ssl_key }}"
@@ -97,8 +97,8 @@ adjutant_email_backend: django.core.mail.backends.smtp.EmailBackend
 adjutant_email_host: localhost
 adjutant_email_port: 587
 adjutant_email_host_user: adjutant
-adjutant_email_use_tls: True
-adjutant_email_use_ssl: False
+adjutant_email_use_tls: true
+adjutant_email_use_ssl: false
 adjutant_email_reply_address: no-reply@example.com
 adjutant_email_from_address: bounce+%(task_uuid)s@example.com
 adjutant_email_notification_address: example@example.com
@@ -133,8 +133,8 @@ adjutant_blacklisted_roles:
 adjutant_default_users_to_project_action: []
 adjutant_default_roles_to_project_action: []
 adjutant_default_quota_size: small
-adjutant_signup_allow_auto_approve: False
-adjutant_quota_allow_auto_approve: False
+adjutant_signup_allow_auto_approve: false
+adjutant_quota_allow_auto_approve: false
 adjutant_quota_size_difference_threshold: 0.1
 adjutant_quota_auto_approve_days: 30
 adjutant_quota_sizes:
@@ -293,7 +293,7 @@ adjutant_pki_setup_host: "{{ openstack_pki_setup_host | default('localhost') }}"
 adjutant_pki_keys_path: "{{ adjutant_pki_dir ~ '/certs/private/' }}"
 adjutant_pki_certs_path: "{{ adjutant_pki_dir ~ '/certs/certs/' }}"
 adjutant_pki_intermediate_cert_name: "{{ openstack_pki_service_intermediate_cert_name | default('ExampleCorpIntermediate') }}"
-adjutant_pki_regen_cert: ''
+adjutant_pki_regen_cert: ""
 adjutant_pki_san: "{{ openstack_pki_san | default('DNS:' ~ ansible_facts['hostname'] ~ ',IP:' ~ management_address) }}"
 adjutant_pki_certificates:
   - name: "adjutant_{{ ansible_facts['hostname'] }}"

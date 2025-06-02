@@ -16,7 +16,7 @@
 # limitations under the License.
 
 - name: Perform adjutant migrate
-  command: "{{ adjutant_bin }}/adjutant-api migrate"
-  become: yes
+  ansible.builtin.command: "{{ adjutant_bin }}/adjutant-api migrate"
+  become: true
   become_user: "{{ adjutant_system_user_name }}"
   changed_when: false

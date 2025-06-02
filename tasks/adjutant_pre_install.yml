@@ -16,13 +16,13 @@
 # limitations under the License.
 
 - name: Create the system group
-  group:
+  ansible.builtin.group:
     name: "{{ adjutant_system_group_name }}"
     state: "present"
     system: "yes"
 
 - name: Create the adjutant system user
-  user:
+  ansible.builtin.user:
     name: "{{ adjutant_system_user_name }}"
     group: "{{ adjutant_system_group_name }}"
     comment: "{{ adjutant_system_comment }}"
@@ -32,7 +32,7 @@
     home: "{{ adjutant_system_home_folder }}"
 
 - name: Create adjutant dir
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: directory
     owner: "{{ item.owner | default(adjutant_system_user_name) }}"

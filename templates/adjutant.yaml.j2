@@ -13,6 +13,8 @@ django:
       PASSWORD: '{{ adjutant_galera_password }}'
       USER: '{{ adjutant_galera_user }}'
       PORT: '{{ adjutant_galera_port }}'
+      OPTIONS:
+        ssl: {{ adjutant_galera_use_ssl }}
   logging:
     version: 1
     disable_existing_loggers: False
