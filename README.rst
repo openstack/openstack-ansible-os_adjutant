@@ -1,25 +1,15 @@
-========================
-Team and repository tags
-========================
-
-.. image:: http://governance.openstack.org/badges/openstack-ansible-os_adjutant.svg
-    :target: http://governance.openstack.org/reference/tags/index.html
-
-.. Change things from this point on
-
+==========================
 OpenStack-Ansible Adjutant
-############################
-:tags: openstack, adjutant, cloud, ansible
-:category: \*nix
+==========================
 
-This Ansible role installs and configures OpenStack adjutant.
+This Ansible role installs and configures OpenStack Adjutant.
 
 This role will install the following Upstart services:
     * adjutant-api
     * adjutant-processor
 
 Adding The Service to Your OpenStack-Ansible Deployment
----------------------------------------------------------
+-------------------------------------------------------
 
 To add a new service to your OpenStack-Ansible (OSA) deployment:
 
@@ -35,7 +25,6 @@ To add a new service to your OpenStack-Ansible (OSA) deployment:
           ip: 172.20.236.112
         infra3:
           ip: 172.20.236.113
-
 
 * Create respective LXC containers (skip this step for metal deployments):
 
