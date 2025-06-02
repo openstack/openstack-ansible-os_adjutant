@@ -18,6 +18,42 @@ This role will install the following Upstart services:
     * adjutant-api
     * adjutant-processor
 
+Adding The Service to Your OpenStack-Ansible Deployment
+---------------------------------------------------------
+
+To add a new service to your OpenStack-Ansible (OSA) deployment:
+
+* Define ``registration_hosts`` in your ``conf.d`` or ``openstack_user_config.yml``.
+  For example:
+
+  .. code-block:: yaml
+
+      registration_hosts:
+        infra1:
+          ip: 172.20.236.111
+        infra2:
+          ip: 172.20.236.112
+        infra3:
+          ip: 172.20.236.113
+
+
+* Create respective LXC containers (skip this step for metal deployments):
+
+  .. code-block:: console
+
+     openstack-ansible openstack.osa.containers_lxc_create --limit adjutant_all,registration_hosts
+
+* Run service deployment playbook:
+
+  .. code-block:: console
+
+     openstack-ansible openstack.osa.adjutant
+
+For more information, please refer to the `OpenStack-Ansible project documentation <https://docs.openstack.org/project-deploy-guide/openstack-ansible/latest/>`_.
+
+Always verify that the integration is successful and that the service behaves
+correctly before using it in a production environment.
+
 Required Variables
 ==================
 
