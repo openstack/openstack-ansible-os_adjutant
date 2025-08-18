@@ -85,6 +85,7 @@
   ansible.builtin.import_tasks: adjutant_post_install.yml
   tags:
     - adjutant-config
+    - post-install
 
 - name: Importing adjutant_db_sync tasks
   ansible.builtin.import_tasks: adjutant_db_sync.yml
