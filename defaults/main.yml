@@ -294,12 +294,14 @@ adjutant_pki_keys_path: "{{ adjutant_pki_dir ~ '/certs/private/' }}"
 adjutant_pki_certs_path: "{{ adjutant_pki_dir ~ '/certs/certs/' }}"
 adjutant_pki_intermediate_cert_name: "{{ openstack_pki_service_intermediate_cert_name | default('ExampleCorpIntermediate') }}"
 adjutant_pki_regen_cert: ""
-adjutant_pki_san: "{{ openstack_pki_san | default('DNS:' ~ ansible_facts['hostname'] ~ ',IP:' ~ management_address) }}"
+adjutant_pki_san: "{{ openstack_pki_san | default({'dns': [ansible_facts['hostname']], 'ip': [management_address]}) }}"
+adjutant_pki_backend: "{{ openstack_pki_backend | default('standalone') }}"
 adjutant_pki_certificates:
   - name: "adjutant_{{ ansible_facts['hostname'] }}"
-    provider: ownca
     cn: "{{ ansible_facts['hostname'] }}"
     san: "{{ adjutant_pki_san }}"
+    # standalone backend only
+    provider: ownca
     signed_by: "{{ adjutant_pki_intermediate_cert_name }}"
 
 # adjutant destination files for SSL certificates
@@ -308,17 +310,21 @@ adjutant_ssl_key: /etc/adjutant/adjutant.key
 
 # Installation details for SSL certificates
 adjutant_pki_install_certificates:
-  - src: "{{ adjutant_user_ssl_cert | default(adjutant_pki_certs_path ~ 'adjutant_' ~ ansible_facts['hostname'] ~ '-chain.crt') }}"
+  - name: "adjutant_{{ ansible_facts['hostname'] }}"
+    type: "certificate_chain"
     dest: "{{ adjutant_ssl_cert }}"
     owner: "{{ adjutant_system_user_name }}"
     group: "{{ adjutant_system_user_name }}"
-    mode: "0644"
-  - src: "{{ adjutant_user_ssl_key | default(adjutant_pki_keys_path ~ 'adjutant_' ~ ansible_facts['hostname'] ~ '.key.pem') }}"
+    # standalone backend only
+    src: "{{ adjutant_user_ssl_cert | default(adjutant_pki_certs_path ~ 'adjutant_' ~ ansible_facts['hostname'] ~ '-chain.crt') }}"
+  - name: "adjutant_{{ ansible_facts['hostname'] }}"
+    type: "private_key"
     dest: "{{ adjutant_ssl_key }}"
     owner: "{{ adjutant_system_user_name }}"
     group: "{{ adjutant_system_user_name }}"
-    mode: "0600"
+    # standalone backend only
+    src: "{{ adjutant_user_ssl_key | default(adjutant_pki_keys_path ~ 'adjutant_' ~ ansible_facts['hostname'] ~ '.key.pem') }}"
 
 # Define user-provided SSL certificates
-# adjutant_user_ssl_cert: <path to cert on ansible deployment host>
-# adjutant_user_ssl_key: <path to cert on ansible deployment host>
+adjutant_user_ssl_cert: ""
+adjutant_user_ssl_key: ""
