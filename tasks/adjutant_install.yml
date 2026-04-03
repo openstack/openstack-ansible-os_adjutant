@@ -56,4 +56,6 @@
     virtualenv: "{{ adjutant_bin | dirname }}"
     name: "{{ adjutant_pip_extra_packages }}"
     state: present
-    extra_args: "{{ (adjutant_git_constraints + [adjutant_pip_install_args]) | join(' ') }}"
+    extra_args: >-
+      --trusted-host {{ (openstack_repo_url | default('http://localhost')) | urlsplit('hostname') }}
+      {{ (adjutant_git_constraints + [adjutant_pip_install_args]) | join(' ') }}
