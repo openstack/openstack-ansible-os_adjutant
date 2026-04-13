@@ -165,7 +165,7 @@ workflow:
 {{ adjutant_blacklisted_roles | to_nice_yaml(indent=2, width=140) | indent(8, True) }}
     SendAdditionalEmailAction:
       prepare:
-        subject: Openstack Email Notification
+        subject: OpenStack Email Notification
         from: {{ adjutant_email_from_address }}
         reply: {{ adjutant_email_reply_address }}
         # template: <your_value>
@@ -179,13 +179,13 @@ workflow:
         # email_additional_addresses:
         #   - admin@example.org
       approve:
-        subject: Openstack Email Notification
+        subject: OpenStack Email Notification
         from: {{ adjutant_email_from_address }}
         reply: {{ adjutant_email_reply_address }}
         email_current_user: False
         email_task_cache: False
       submit:
-        subject: Openstack Email Notification
+        subject: OpenStack Email Notification
         from: {{ adjutant_email_from_address }}
         reply: {{ adjutant_email_reply_address }}
         email_current_user: False
