@@ -268,7 +268,7 @@ adjutant_pip_install_args: "{{ pip_install_options | default('') }}"
 adjutant_venv_python_executable: "{{ openstack_venv_python_executable | default('python3') }}"
 
 adjutant_pip_packages:
-  - "git+{{ adjutant_git_repo }}@{{ adjutant_git_install_branch }}#egg=python-adjutant"
+  - "python-adjutant@git+{{ adjutant_git_repo }}@{{ adjutant_git_install_branch }}"
   - cryptography
   - systemd-python
 
